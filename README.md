@@ -1,2 +1,2 @@
-# wikipedia
-I made this program to practice material design
+# wikipedia_dunijet
+its testing project
