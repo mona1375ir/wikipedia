@@ -1,5 +1,9 @@
 package com.example.wikipedia.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class ItemPost(
     //for explore fragment
     val imgUrl: String,
@@ -9,4 +13,4 @@ data class ItemPost(
     //for trend fragment
     val isTrend: Boolean,
     val inSight: String,
-)
+):Parcelable
