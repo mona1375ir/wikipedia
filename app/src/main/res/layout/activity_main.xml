@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/drawerLayoutMain"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/AppBarMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:theme="@style/myToolbar"
+                app:titleTextAppearance="@style/myToolbar"
+                android:id="@+id/ToolbarMain"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"/>
+        </com.google.android.material.appbar.AppBarLayout>
+        <!--framelayout
+        recyclerview
+        nestedscroolview
+        in 3ta halato mitonim inja estefadeh konim-->
+        <FrameLayout
+            android:id="@+id/fram_container_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:layout_marginBottom="56dp"/>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+            android:id="@+id/bottomNavigationView_Main"
+            app:menu="@menu/menu_bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"/>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_gravity="start"
+        app:menu="@menu/menu_navigation_drawer"
+        app:headerLayout="@layout/header_main"
+        android:id="@+id/NavigationviewMain"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>
