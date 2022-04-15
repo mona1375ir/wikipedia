@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.wikipedia.databinding.ActivityMainBinding
 import com.example.wikipedia.fragment.Fragment_Explore
 import com.example.wikipedia.fragment.Fragment_Profile
@@ -36,7 +37,24 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu_photografer -> {}
                 R.id.menu_translator -> {}
-                R.id.menu_writer -> {}
+                R.id.menu_writer -> {
+                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                    val sweetAlert=SweetAlertDialog(this,SweetAlertDialog.SUCCESS_TYPE)
+                    sweetAlert.titleText="SweetAlert!"
+                    sweetAlert.confirmText="Confirm"
+                    sweetAlert.cancelText="Cancel"
+                    sweetAlert.contentText="Wanna be a Writer?"
+                    sweetAlert.dismiss()
+                    sweetAlert.setConfirmClickListener {
+                        sweetAlert.dismiss()
+                        Toast.makeText(this, "You can ,JUST WORK WORK WORK!", Toast.LENGTH_SHORT).show()
+                    }
+                    sweetAlert.setCancelClickListener {
+                        sweetAlert.dismiss()
+                    }
+                    sweetAlert.show()
+                }
+
                 R.id.menu_visit_wikipedia -> {}
                 R.id.menu_visit_wikimedia -> {}
 
