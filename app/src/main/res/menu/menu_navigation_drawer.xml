@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/menu_writer"
-        android:icon="@drawable/ic_writer"
-        android:title="@string/be_a_writer" />
+    <group
+        android:id="@+id/group_menu">
+        <item
+            android:id="@+id/menu_writer"
+            android:icon="@drawable/ic_writer"
+            android:title="@string/be_a_writer"
+            android:checkable="true"/>
 
-    <item
-        android:id="@+id/menu_photografer"
-        android:icon="@drawable/ic_photographer"
-        android:title="@string/be_a_photografer" />
+        <item
 
-    <item
-        android:id="@+id/menu_moviemaker"
-        android:icon="@drawable/ic_baseline_videocam_24"
-        android:title="@string/be_a_movie_maker" />
+            android:id="@+id/menu_photographer"
+            android:icon="@drawable/ic_photographer"
+            android:title="@string/be_a_photografer"
+            android:checkable="true"/>
 
-    <item
-        android:id="@+id/menu_translator"
-        android:icon="@drawable/ic_translate"
-        android:title="@string/be_a_translator" />
+        <item
+
+            android:id="@+id/menu_moviemaker"
+            android:icon="@drawable/ic_baseline_videocam_24"
+            android:title="@string/be_a_movie_maker"
+            android:checkable="true"/>
+
+        <item
+
+            android:id="@+id/menu_translator"
+            android:icon="@drawable/ic_translate"
+            android:checkable="true"
+            android:title="@string/be_a_translator" />
+
+    </group>
 
     <item android:title="@string/our_websites">
         <menu>

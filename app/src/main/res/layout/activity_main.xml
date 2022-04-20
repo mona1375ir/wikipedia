@@ -9,7 +9,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".activity.MainActivity">
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/AppBarMain"
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         nestedscroolview
         in 3ta halato mitonim inja estefadeh konim-->
         <FrameLayout
-            android:id="@+id/fram_container_main"
+            android:id="@+id/from_container_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"

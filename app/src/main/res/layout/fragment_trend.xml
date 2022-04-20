@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.recyclerview.widget.RecyclerView
+        android:layoutAnimation="@anim/recycler"
         android:id="@+id/recycler_trend"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

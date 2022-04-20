@@ -1,4 +1,4 @@
-package com.example.wikipedia
+package com.example.wikipedia.activity
 
 import android.content.Intent
 import android.net.Uri
@@ -11,8 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.wikipedia.data.ItemPost
 import com.example.wikipedia.databinding.ActivityMain2Binding
 import com.example.wikipedia.fragment.SEND_DATA_TO_MAINACTIVITY2
+import ir.dunijet.animation.ext.BaseActivity
 
-class MainActivity2 : AppCompatActivity() {
+class MainActivity2 : BaseActivity() {
     lateinit var binding:ActivityMain2Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
