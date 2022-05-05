@@ -1,12 +1,12 @@
 package com.example.wikipedia.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -21,32 +21,43 @@ import com.example.wikipedia.fragment.Fragment_Trend
 import com.google.android.material.snackbar.Snackbar
 import ir.dunijet.animation.ext.BaseActivity
 import ir.dunijet.wikipedia.fragments.FragmentPhotographer
+import android.widget.Toast as Toast1
 
 class MainActivity : BaseActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var
+            sharedPreferences: SharedPreferences
+    private lateinit var mybinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        mybinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mybinding.root)
+        firstRun()
+        val myfragment = supportFragmentManager.beginTransaction()
+
+        myfragment.replace(R.id.from_container_main, Fragment_Profile()).commit()
 
 
-        setSupportActionBar(binding.ToolbarMain)
 
-        val actionBarDrawerToggle = ActionBarDrawerToggle(this,
-            binding.drawerLayoutMain, binding.ToolbarMain,
+
+        setSupportActionBar(mybinding.ToolbarMain)
+
+        val actionBarDrawerToggle = ActionBarDrawerToggle(
+            this,
+            mybinding.drawerLayoutMain, mybinding.ToolbarMain,
             R.string.openDrawer,
-            R.string.closeDrawer)
-        binding.drawerLayoutMain.addDrawerListener(actionBarDrawerToggle)
+            R.string.closeDrawer
+        )
+        mybinding.drawerLayoutMain.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
-        binding.NavigationviewMain.setNavigationItemSelectedListener {
+        mybinding.NavigationviewMain.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_moviemaker -> {
                     // start is direction for closeDrawer
-                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                    mybinding.drawerLayoutMain.closeDrawer(GravityCompat.START)
                     Snackbar
-                        .make(binding.root, "No Internet", Snackbar.LENGTH_LONG)
+                        .make(mybinding.root, "No Internet", Snackbar.LENGTH_LONG)
                         .setAction("Retry") {
-                            Toast.makeText(this, "Checking Network", Toast.LENGTH_SHORT).show()
+                            Toast1.makeText(this, "Checking Network", Toast1.LENGTH_SHORT).show()
                         }
                         .setActionTextColor(ContextCompat.getColor(this, R.color.white))
                         .setBackgroundTint(ContextCompat.getColor(this, R.color.blue))
@@ -55,12 +66,12 @@ class MainActivity : BaseActivity() {
                 R.id.menu_photographer -> {
                     //load fragment
                     val transaction = supportFragmentManager.beginTransaction()
-                    transaction.add(R.id.from_container_main, FragmentPhotographer())
+                    transaction.replace(R.id.from_container_main, FragmentPhotographer())
                     transaction.addToBackStack(null)
                     transaction.commit()
-                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                    mybinding.drawerLayoutMain.closeDrawer(GravityCompat.START)
                     //checked item by groupMenu
-                    binding.NavigationviewMain.setCheckedItem(R.id.group_menu)
+                    mybinding.NavigationviewMain.setCheckedItem(R.id.group_menu)
                     // binding.NavigationviewMain.setCheckedItem(R.id.menu_photografer)
 
                 }
@@ -70,7 +81,7 @@ class MainActivity : BaseActivity() {
 
                 }
                 R.id.menu_writer -> {
-                    binding.drawerLayoutMain.closeDrawer(GravityCompat.START)
+                    mybinding.drawerLayoutMain.closeDrawer(GravityCompat.START)
                     val sweetAlert = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                     sweetAlert.titleText = "SweetAlert!"
                     sweetAlert.confirmText = "Confirm"
@@ -79,7 +90,7 @@ class MainActivity : BaseActivity() {
                     sweetAlert.dismiss()
                     sweetAlert.setConfirmClickListener {
                         sweetAlert.dismiss()
-                        Toast.makeText(this, "You can ,JUST WORK WORK WORK!", Toast.LENGTH_SHORT)
+                        Toast1.makeText(this, "You can ,JUST WORK WORK WORK!", Toast1.LENGTH_SHORT)
                             .show()
                     }
                     sweetAlert.setCancelClickListener {
@@ -90,6 +101,8 @@ class MainActivity : BaseActivity() {
 
                 R.id.menu_visit_wikipedia -> {
                     openWebsite("https://www.wikipedia.org/")
+
+
                 }
                 R.id.menu_visit_wikimedia -> {
                     openWebsite("https://www.wikimedia.org/")
@@ -99,8 +112,7 @@ class MainActivity : BaseActivity() {
             }
             true
         }
-        firstRun()
-        binding.bottomNavigationViewMain.setOnItemSelectedListener {
+        mybinding.bottomNavigationViewMain.setOnItemSelectedListener { it ->
             when (it.itemId) {
                 R.id.menu_explore -> {
                     replaceFragment(Fragment_Explore())
@@ -110,9 +122,10 @@ class MainActivity : BaseActivity() {
                 }
                 R.id.menu_profile -> {
                     replaceFragment(Fragment_Profile())
+
                 }
             }
-            binding.NavigationviewMain.menu.forEach {
+            mybinding.NavigationviewMain.menu.forEach {
                 if (it.isChecked) {
                     it.isChecked = false
                 }
@@ -120,7 +133,20 @@ class MainActivity : BaseActivity() {
 
             true
         }
-        binding.bottomNavigationViewMain.setOnItemReselectedListener { }
+        mybinding.bottomNavigationViewMain.setOnItemReselectedListener { }
+    }
+
+    private fun firstRun() {
+        sharedPreferences =
+            this.getSharedPreferences("MainSharedPref.xml", Context.MODE_PRIVATE)
+        val firstrun = sharedPreferences.getBoolean("IsFirstRun", true)
+        if (firstrun) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            sharedPreferences.edit().putBoolean("IsFirstRun", false).apply()
+        }
+
+
     }
 
     private fun openWebsite(url: String) {
@@ -130,10 +156,10 @@ class MainActivity : BaseActivity() {
 
     }
 
-    private fun firstRun() {
-        replaceFragment(Fragment_Explore())
-        binding.bottomNavigationViewMain.selectedItemId = R.id.menu_explore
-    }
+    /* private fun firstRun() {
+         replaceFragment(Fragment_Profile())
+         binding.bottomNavigationViewMain.selectedItemId = R.id.menu_explore
+     }*/
 
     private fun replaceFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
@@ -142,16 +168,17 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main,menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.menu_Exit->{
+        when (item.itemId) {
+            R.id.menu_Exit -> {
                 onBackPressed()
             }
         }
         return true
     }
+
 }
